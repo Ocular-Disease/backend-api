@@ -23,7 +23,7 @@ COPY yarn.lock .
 
 RUN yarn install --frozen-lockfile
 
-COPY --from=builder /app/dist ./
+COPY --from=builder /app/dist ./dist
 
 ENV NODE_ENV production
 ENV PORT 8080
