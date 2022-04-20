@@ -14,7 +14,7 @@ permissions:
 jobs:
   build-push:
     name: Build Push to ECR
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     environment: production
 
     steps:
