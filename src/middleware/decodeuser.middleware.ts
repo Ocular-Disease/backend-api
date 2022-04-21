@@ -6,8 +6,7 @@ export const decodeUser = (req: Request, res: Response, next: NextFunction) => {
     const token = req.session.access_token;
     if (token) {
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || '') as IPayload;
-            req.userId = decoded.userId;
+            req.currentUser = jwt.verify(token, process.env.JWT_SECRET || '') as IPayload;
         } catch (error) {
             next(error);
         }

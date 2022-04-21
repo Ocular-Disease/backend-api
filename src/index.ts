@@ -5,6 +5,8 @@ import { securityMiddleware } from './config/security.config';
 import userRoute from './routes/user.route';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
+import 'express-async-errors';
+import { errorHandler } from './error/errorhandler.handler';
 
 dotenv.config();
 
@@ -41,6 +43,7 @@ app.use(
 );
 
 
+
 /**
  * Map Routes
  */
@@ -48,6 +51,11 @@ app.use(
 app.use('/api/user', userRoute.router);
 
 
+/**
+ * Error Handler
+ */
+
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
