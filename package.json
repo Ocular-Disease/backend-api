@@ -24,6 +24,7 @@
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
+    "class-validator": "^0.13.2",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
@@ -32,6 +33,9 @@
     "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pg": "^8.7.3",
+    "typeorm": "^0.3.6",
+    "typeorm-naming-strategies": "^4.1.0"
   }
 }
