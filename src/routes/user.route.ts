@@ -20,7 +20,7 @@ class UserRouter {
         this.router.get("/me",
             decodeUser,
             ensureAuthenticated,
-            ensureAccessLevel(Role.ADMIN),
+            ensureAccessLevel(Role.PATIENT),
             userController.user
         );
     }

@@ -9,7 +9,7 @@ import { ValidationError } from '../error/ValidationError';
 
 class UserController {
     public async greet(req: Request, res: Response) {
-        req.session.access_token = jwtService.sign({ userId: 'belkamelmohamed@gmail.com', role: Role.ADMIN });
+        req.session.access_token = jwtService.sign({ userId: 'belkamelmohamed@gmail.com', role: Role.PATIENT });
         req.sessionOptions.expires = moment().add(1, 'days').toDate();
 
         res.status(200).json({ message: 'Hello' });

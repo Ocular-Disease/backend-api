@@ -1,13 +1,6 @@
 import 'express-async-errors';
-import dotenv from 'dotenv';
-import express from 'express';
-import morgan from 'morgan';
-import { securityMiddleware } from './config/security.config';
-import userRoute from './routes/user.route';
-import cors from 'cors';
-import cookieSession from 'cookie-session';
-import { errorHandler } from './error/errorhandler.handler';
 import { PostgresDataSource } from './config/datasource.config';
+import { App } from './server';
 
 
 
@@ -31,56 +24,13 @@ async function main() {
     try {
         await PostgresDataSource.initialize();
 
-        console.log('Database connected');
+        console.log("Connected to DB");
 
-        dotenv.config();
-
-        const app = express();
-
-        /**
-         * Map Middleware
-         */
-
-        app.use(
-            process.env.NODE_ENV === 'dev' ? morgan('dev') : morgan('combined')
-        );
-        app.use(securityMiddleware);
-        app.use(cors({
-            origin: process.env.CORS_ORIGIN,
-        }));
-        app.use(
-            cookieSession({
-                name: "access_token",
-                domain: process.env.COOKIE_DOMAIN,
-                signed: false,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-            })
-        )
-        app.use(
-            express.json({
-                limit: '10mb',
-            }),
-        );
-
-
-
-        /**
-         * Map Routes
-         */
-
-        app.use('/api/users', userRoute.router);
-
-
-        /**
-         * Error Handler
-         */
-
-        app.use(errorHandler);
-
-        app.listen(process.env.PORT || 3000, () => {
+        const app = new App();
+        app.listen(() => {
             console.log(`Server is running on port ${process.env.PORT || 3000}`);
         });
+
     } catch (error: any) {
         console.error(error.message);
     }
