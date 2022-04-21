@@ -1,17 +1,15 @@
 import { DataSource } from "typeorm";
 import { User } from "../model/user";
-import dotenv from 'dotenv';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-
-dotenv.config();
+import { config } from "./env.config";
 
 const PostgresDataSource = new DataSource({
     name: "default",
     type: "postgres",
-    host: process.env.DB_HOST,
+    host: config.DB_HOST,
     port: 5432,
     username: "postgres",
-    password: process.env.DB_PASSWORD,
+    password: config.DB_PASSWORD,
     database: "oculardb",
     entities: [
         User

@@ -2,6 +2,7 @@ import cookieSession from "cookie-session";
 import cors from "cors";
 import express, { Application } from "express"
 import morgan from "morgan";
+import { config } from "./config/env.config";
 import { securityMiddleware } from "./config/security.config";
 import { errorHandler } from "./error/errorhandler.handler";
 import { NotFoundException } from "./error/NotFoundException.error";
@@ -38,19 +39,19 @@ export class App {
 
     private mapMiddleware() {
         this._app.use(
-            process.env.NODE_ENV === 'dev' ? morgan('dev') : morgan('combined')
+            config.NODE_ENV ? morgan('dev') : morgan('combined')
         );
         this._app.use(securityMiddleware);
         this._app.use(cors({
-            origin: process.env.CORS_ORIGIN,
+            origin: config.CORS_ORIGIN,
         }));
         this._app.use(
             cookieSession({
                 name: "access_token",
-                domain: process.env.COOKIE_DOMAIN,
+                domain: config.COOKIE_DOMAIN,
                 signed: false,
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
+                secure: config.NODE_ENV === 'production',
             })
         )
         this._app.use(
@@ -68,6 +69,6 @@ export class App {
     }
 
     public listen(callback: () => void) {
-        this._app.listen(process.env.PORT || 3000, callback);
+        this._app.listen(config.port, callback);
     }
 }

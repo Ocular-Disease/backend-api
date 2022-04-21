@@ -1,19 +1,10 @@
 import 'express-async-errors';
 import { PostgresDataSource } from './config/datasource.config';
 import { App } from './server';
+import { config } from './config/env.config';
 
-
-
-if (!process.env.JWT_SECRET) {
-    throw new Error('JWT_SECRET is not defined');
-}
-
-if (!process.env.CORS_ORIGIN) {
-    throw new Error('CORS_ORIGIN is not defined');
-}
-
-if (!process.env.COOKIE_DOMAIN) {
-    throw new Error('CORS_ORIGIN is not defined');
+if (Object.values(config).some(value => value === '')) {
+    throw new Error(`Missing environment variables ${Object.entries(config).find(([key, value]) => value === '')}`);
 }
 
 
@@ -28,7 +19,7 @@ async function main() {
 
         const app = new App();
         app.listen(() => {
-            console.log(`Server is running on port ${process.env.PORT || 3000}`);
+            console.log(`Server is running on port ${config.port}`);
         });
 
     } catch (error: any) {
