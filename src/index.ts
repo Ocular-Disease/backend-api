@@ -16,6 +16,15 @@ if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined');
 }
 
+if (!process.env.CORS_ORIGIN) {
+    throw new Error('CORS_ORIGIN is not defined');
+}
+
+if (!process.env.COOKIE_DOMAIN) {
+    throw new Error('CORS_ORIGIN is not defined');
+}
+
+
 /**
  * Map Middleware
  */
@@ -57,7 +66,7 @@ app.use('/api/user', userRoute.router);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running on port ${process.env.PORT || 3000}`);
 });
 
