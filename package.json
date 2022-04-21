@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prestart": "yarn run build",
-    "build": "tsc -p .",
+    "build": "del-cli dist/* && tsc -p .",
     "start": "node .",
     "dev": "nodemon src/index.ts"
   },
