@@ -4,6 +4,7 @@ import express, { Application } from "express"
 import morgan from "morgan";
 import { securityMiddleware } from "./config/security.config";
 import { errorHandler } from "./error/errorhandler.handler";
+import { NotFoundException } from "./error/NotFoundException.error";
 import userRoute from "./routes/user.route";
 
 export class App {
@@ -17,6 +18,25 @@ export class App {
          * Map Middleware
          */
 
+        this.mapMiddleware();
+
+        /**
+         * Map Routes
+         */
+
+        this.mapRoutes();
+
+
+        /**
+         * Error Handler
+         */
+
+        this._app.use(errorHandler);
+
+
+    }
+
+    private mapMiddleware() {
         this._app.use(
             process.env.NODE_ENV === 'dev' ? morgan('dev') : morgan('combined')
         );
@@ -38,24 +58,13 @@ export class App {
                 limit: '10mb',
             }),
         );
+    }
 
-
-
-        /**
-         * Map Routes
-         */
-
+    private mapRoutes() {
         this._app.use('/api/users', userRoute.router);
-
-
-        /**
-         * Error Handler
-         */
-
-        this._app.use(errorHandler);
-
-
-
+        this._app.all('*', (req, res) => {
+            throw new NotFoundException("Route not found");
+        });
     }
 
     public listen(callback: () => void) {
