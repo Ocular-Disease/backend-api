@@ -1,6 +1,6 @@
 import cookieSession from "cookie-session";
 import cors from "cors";
-import express, { Application } from "express"
+import express, { Application } from "express";
 import morgan from "morgan";
 import { config } from "./config/env.config";
 import { securityMiddleware } from "./config/security.config";
@@ -15,6 +15,8 @@ export class App {
     constructor() {
         this._app = express();
 
+        this._app.enable('trust proxy');
+
         /**
          * Map Middleware
          */
@@ -27,6 +29,12 @@ export class App {
 
         this.mapRoutes();
 
+
+        /**
+         * Not Found Handler
+         */
+
+        this._app.use(this.notFound);
 
         /**
          * Error Handler
@@ -63,9 +71,10 @@ export class App {
 
     private mapRoutes() {
         this._app.use('/api/users', userRoute.router);
-        this._app.all('*', (req, res) => {
-            throw new NotFoundException("Route not found");
-        });
+    }
+
+    private notFound(req: express.Request, res: express.Response, next: express.NextFunction) {
+        next(new NotFoundException());
     }
 
     public listen(callback: () => void) {
