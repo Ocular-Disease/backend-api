@@ -6,6 +6,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
         return res.status(err.statusCode).json(err.serializeErrors());
     }
 
+    console.log(err.message);
     res.status(500).json([{
         message: "Something went wrong"
     }]);

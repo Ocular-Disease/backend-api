@@ -1,9 +1,9 @@
 import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from "class-transformer";
 
 export abstract class User {
 
     @PrimaryGeneratedColumn("uuid")
-    @Column()
     id!: string;
 
     @Column()

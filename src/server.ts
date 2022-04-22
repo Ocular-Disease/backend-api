@@ -6,7 +6,8 @@ import { config } from "./config/env.config";
 import { securityMiddleware } from "./config/security.config";
 import { errorHandler } from "./error/errorhandler.handler";
 import { NotFoundException } from "./error/NotFoundException.error";
-import userRoute from "./routes/admin.router";
+import adminRouter from "./routes/admin.router";
+import medecinRouter from "./routes/medecin.router";
 
 export class App {
 
@@ -70,7 +71,8 @@ export class App {
     }
 
     private mapRoutes() {
-        this._app.use('/api/users', userRoute.router);
+        this._app.use('/api/admins', adminRouter.router);
+        this._app.use('/api/medecins', medecinRouter.router);
     }
 
     private notFound(req: express.Request, res: express.Response, next: express.NextFunction) {

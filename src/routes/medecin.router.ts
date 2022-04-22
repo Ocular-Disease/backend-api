@@ -1,11 +1,11 @@
 import { Router } from "express";
-import adminController from "../controller/admin.controller";
+import medecinController from "../controller/medecin.controller";
 import { decodeUser } from "../middleware/decodeuser.middleware";
 import { ensureAccessLevel } from "../middleware/ensureAccessLevel";
 import { ensureAuthenticated } from "../middleware/ensureAuthenticated.middleware";
 import { Role } from "../types/role.enum";
 
-class AdminRouter {
+class MedecinRouter {
     public router: Router;
 
     constructor() {
@@ -18,33 +18,33 @@ class AdminRouter {
             decodeUser,
             ensureAuthenticated,
             ensureAccessLevel(Role.ADMIN),
-            adminController.allAdmins
+            medecinController.getAll
+        );
+        this.router.get("/:id",
+            decodeUser,
+            ensureAuthenticated,
+            ensureAccessLevel(Role.ADMIN),
+            medecinController.getById
         );
         this.router.post("/",
             decodeUser,
             ensureAuthenticated,
             ensureAccessLevel(Role.ADMIN),
-            adminController.create
+            medecinController.create
         );
-        this.router.post("/login",
-            adminController.login
-        );
-        this.router.get("/logout",
-            adminController.logout
-        );
-        this.router.get("/me",
+        this.router.delete("/:id",
             decodeUser,
             ensureAuthenticated,
-            ensureAccessLevel(Role.PATIENT),
-            adminController.currentAdmin
+            ensureAccessLevel(Role.ADMIN),
+            medecinController.delete
         );
-        this.router.get("/:id",
+        this.router.put("/:id",
             decodeUser,
             ensureAuthenticated,
-            ensureAccessLevel(Role.PATIENT),
-            adminController.adminById
+            ensureAccessLevel(Role.ADMIN),
+            medecinController.update
         );
     }
 }
 
-export default new AdminRouter();
+export default new MedecinRouter();

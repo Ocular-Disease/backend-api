@@ -15,11 +15,15 @@ class AdminService {
     }
 
     public async getById(id: string): Promise<User | null> {
-        return this.adminRepository.findOneBy({ id });
+        return this.adminRepository.findOne({ where: { id } });
     }
 
     public async create(user: User): Promise<User> {
         return this.adminRepository.save(user);
+    }
+
+    public async getByEmail(email: string): Promise<User | null> {
+        return this.adminRepository.findOneBy({ email });
     }
 
 
