@@ -6,7 +6,7 @@ import { config } from "./config/env.config";
 import { securityMiddleware } from "./config/security.config";
 import { errorHandler } from "./error/errorhandler.handler";
 import { NotFoundException } from "./error/NotFoundException.error";
-import userRoute from "./routes/user.route";
+import userRoute from "./routes/admin.router";
 
 export class App {
 

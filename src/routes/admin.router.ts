@@ -1,11 +1,11 @@
 import { Router } from "express";
-import userController from "../controller/user.controller";
+import adminController from "../controller/admin.controller";
 import { decodeUser } from "../middleware/decodeuser.middleware";
 import { ensureAccessLevel } from "../middleware/ensureAccessLevel";
 import { ensureAuthenticated } from "../middleware/ensureAuthenticated.middleware";
 import { Role } from "../types/role.enum";
 
-class UserRouter {
+class AdminRouter {
     public router: Router;
 
     constructor() {
@@ -14,16 +14,25 @@ class UserRouter {
     }
 
     private routes() {
-        this.router.get("/", userController.users);
-        this.router.post("/", userController.create);
-        this.router.get("/hello", userController.greet);
+        this.router.get("/",
+            adminController.allAdmins
+        );
+        this.router.post("/",
+            adminController.create
+        );
         this.router.get("/me",
             decodeUser,
             ensureAuthenticated,
             ensureAccessLevel(Role.PATIENT),
-            userController.user
+            adminController.currentAdmin
+        );
+        this.router.get("/:id",
+            decodeUser,
+            ensureAuthenticated,
+            ensureAccessLevel(Role.PATIENT),
+            adminController.adminById
         );
     }
 }
 
-export default new UserRouter();
+export default new AdminRouter();

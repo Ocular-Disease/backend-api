@@ -1,24 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsBoolean, IsNotEmpty } from 'class-validator'
+import { Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class User {
+export abstract class User {
+
     @PrimaryGeneratedColumn("uuid")
-    id!: string
-
-    constructor(init?: Partial<User>) {
-        Object.assign(this, init);
-    }
+    @Column()
+    id!: string;
 
     @Column()
-    @IsNotEmpty()
-    firstName!: string
+    firstName!: string;
 
     @Column()
-    @IsNotEmpty()
-    lastName!: string
+    lastName!: string;
 
     @Column()
-    @IsBoolean()
-    isActive!: boolean
+    email!: string;
+
+    @Column()
+    password!: string;
+
 }
