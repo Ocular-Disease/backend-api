@@ -1,7 +1,5 @@
-import { Entity } from "typeorm";
-import { User } from "./user";
+import { Entity } from 'typeorm';
+import { User } from './user';
 
 @Entity()
-export class Admin extends User {
-
-}
+export class Admin extends User {}

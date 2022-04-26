@@ -1,39 +1,37 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction } from 'express';
 import medecinService from '../service/medecin.service';
 
 class MedecinController {
+	public async getAll(req: Request, res: Response) {
+		res.status(200).json(await medecinService.getAll());
+	}
 
+	public async getById(req: Request, res: Response) {
+		const medecinId = req.params.id;
 
-    public async getAll(req: Request, res: Response) {
-        res.status(200).json(await medecinService.getAll());
-    }
+		res.status(200).json(await medecinService.getById(medecinId));
+	}
 
-    public async getById(req: Request, res: Response) {
-        const medecinId = req.params.id;
+	public async create(req: Request, res: Response) {
+		const medecin = req.body;
 
-        res.status(200).json(await medecinService.getById(medecinId));
-    }
+		res.status(200).json(await medecinService.create(medecin));
+	}
 
-    public async create(req: Request, res: Response) {
-        const medecin = req.body;
+	public async delete(req: Request, res: Response) {
+		const medecinId = req.params.id;
 
-        res.status(200).json(await medecinService.create(medecin));
-    }
+		await medecinService.delete(medecinId);
 
-    public async delete(req: Request, res: Response) {
-        const medecinId = req.params.id;
+		res.status(200).json();
+	}
 
-        await medecinService.delete(medecinId);
+	public async update(req: Request, res: Response) {
+		const medecinId = req.params.id;
+		const medecin = req.body;
 
-        res.status(200).json();
-    }
-
-    public async update(req: Request, res: Response) {
-        const medecinId = req.params.id;
-        const medecin = req.body;
-
-        res.status(200).json(await medecinService.update(medecinId, medecin));
-    }
+		res.status(200).json(await medecinService.update(medecinId, medecin));
+	}
 }
 
 export default new MedecinController();

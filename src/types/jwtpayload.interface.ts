@@ -1,6 +1,6 @@
-import { Role } from "./role.enum";
+import { Role } from './role.enum';
 
 export interface IPayload {
-    userId: string;
-    role: Role;
+	userId: string;
+	role: Role;
 }

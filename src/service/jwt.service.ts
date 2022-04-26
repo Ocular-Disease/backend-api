@@ -3,17 +3,17 @@ import { config } from '../config/env.config';
 import { IPayload } from '../types/jwtpayload.interface';
 
 class JwtService {
-    constructor(private readonly options?: SignOptions) { }
+	constructor(private readonly options?: SignOptions) {}
 
-    public sign(payload: IPayload): string {
-        return jwt.sign(payload, config.JWT_SECRET!, this.options);
-    }
+	public sign(payload: IPayload): string {
+		return jwt.sign(payload, config.JWT_SECRET!, this.options);
+	}
 
-    public verify(token: string): IPayload {
-        return jwt.verify(token, config.JWT_SECRET!, this.options) as IPayload;
-    }
+	public verify(token: string): IPayload {
+		return jwt.verify(token, config.JWT_SECRET!, this.options) as IPayload;
+	}
 }
 
 export default new JwtService({
-    expiresIn: '1d',
+	expiresIn: '1d',
 });
