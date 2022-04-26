@@ -69,6 +69,7 @@ export class App {
 	private mapRoutes() {
 		this._app.use('/api/admins', adminRouter.router);
 		this._app.use('/api/medecins', medecinRouter.router);
+		this._app.use('/api/test', medecinRouter.router);
 	}
 
 	private notFound(
