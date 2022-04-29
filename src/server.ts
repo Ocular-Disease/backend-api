@@ -10,77 +10,76 @@ import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
 
 export class App {
-	private _app: Application;
+    private _app: Application;
 
-	constructor() {
-		this._app = express();
+    constructor() {
+        this._app = express();
 
-		this._app.enable('trust proxy');
+        this._app.enable('trust proxy');
 
-		/**
-		 * Map Middleware
-		 */
+        /**
+         * Map Middleware
+         */
 
-		this.mapMiddleware();
+        this.mapMiddleware();
 
-		/**
-		 * Map Routes
-		 */
+        /**
+         * Map Routes
+         */
 
-		this.mapRoutes();
+        this.mapRoutes();
 
-		/**
-		 * Not Found Handler
-		 */
+        /**
+         * Not Found Handler
+         */
 
-		this._app.use(this.notFound);
+        this._app.use(this.notFound);
 
-		/**
-		 * Error Handler
-		 */
+        /**
+         * Error Handler
+         */
 
-		this._app.use(errorHandler);
-	}
+        this._app.use(errorHandler);
+    }
 
-	private mapMiddleware() {
-		this._app.use(config.NODE_ENV ? morgan('dev') : morgan('combined'));
-		this._app.use(securityMiddleware);
-		this._app.use(
-			cors({
-				origin: config.CORS_ORIGIN,
-			})
-		);
-		this._app.use(
-			cookieSession({
-				name: 'access_token',
-				domain: config.COOKIE_DOMAIN,
-				signed: false,
-				httpOnly: true,
-				secure: config.NODE_ENV === 'production',
-			})
-		);
-		this._app.use(
-			express.json({
-				limit: '10mb',
-			})
-		);
-	}
+    private mapMiddleware() {
+        this._app.use(config.NODE_ENV ? morgan('dev') : morgan('combined'));
+        this._app.use(securityMiddleware);
+        this._app.use(
+            cors({
+                origin: config.CORS_ORIGIN,
+            })
+        );
+        this._app.use(
+            cookieSession({
+                name: 'access_token',
+                domain: config.COOKIE_DOMAIN,
+                signed: false,
+                httpOnly: true,
+                secure: config.NODE_ENV === 'production',
+            })
+        );
+        this._app.use(
+            express.json({
+                limit: '10mb',
+            })
+        );
+    }
 
-	private mapRoutes() {
-		this._app.use('/api/admins', adminRouter.router);
-		this._app.use('/api/medecins', medecinRouter.router);
-		this._app.use('/api/test', medecinRouter.router);
-	}
+    private mapRoutes() {
+        this._app.use('/api/admins', adminRouter.router);
+        this._app.use('/api/medecins', medecinRouter.router);
+    }
 
-	private notFound(
-		req: express.Request,
-		res: express.Response,
-		next: express.NextFunction
-	) {
-		next(new NotFoundException());
-	}
+    private notFound(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) {
+        next(new NotFoundException());
+    }
 
-	public listen(callback: () => void) {
-		this._app.listen(config.port, callback);
-	}
+    public listen(callback: () => void) {
+        this._app.listen(config.port, callback);
+    }
 }
