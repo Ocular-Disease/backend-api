@@ -58,6 +58,15 @@ class AdminController {
 
 		res.status(200).json();
 	}
+
+	public async details(req: Request, res: Response) {
+		const admin = await adminService.getById(req.currentUser?.userId!);
+
+		const adminNoPassword = { ...admin, password: undefined };
+
+
+		res.status(200).json(adminNoPassword);
+	}
 }
 
 export default new AdminController();
