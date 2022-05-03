@@ -3,7 +3,6 @@ import adminController from '../controller/admin.controller';
 import { decodeUser } from '../middleware/decodeuser.middleware';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
-import { validator } from '../middleware/validator.middleware';
 import { Role } from '../types/role.enum';
 
 class AdminRouter {
@@ -36,7 +35,7 @@ class AdminRouter {
 			ensureAccessLevel(Role.ADMIN),
 			adminController.create
 		);
-		this.router.post('/login', validator("login"), adminController.login);
+		this.router.post('/login', adminController.login);
 		this.router.get('/logout', adminController.logout);
 		this.router.get(
 			'/me',
