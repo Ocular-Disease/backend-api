@@ -11,8 +11,8 @@ export const decodeUser = (req: Request, res: Response, next: NextFunction) => {
 				token,
 				config.JWT_SECRET || ''
 			) as IPayload;
-		} catch (error) {
-			next(error);
+		} catch (error: any) {
+			next();
 		}
 	}
 	next();

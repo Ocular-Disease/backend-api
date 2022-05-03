@@ -16,35 +16,30 @@ class MedecinRouter {
 	private routes() {
 		this.router.get(
 			'/',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			medecinController.getAll
 		);
 		this.router.get(
 			'/:id',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			medecinController.getById
 		);
 		this.router.post(
 			'/',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			medecinController.create
 		);
 		this.router.delete(
 			'/:id',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			medecinController.delete
 		);
 		this.router.put(
 			'/:id',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			medecinController.update

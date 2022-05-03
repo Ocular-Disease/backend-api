@@ -6,6 +6,7 @@ import { config } from './config/env.config';
 import { securityMiddleware } from './config/security.config';
 import { errorHandler } from './error/errorhandler.handler';
 import { NotFoundException } from './error/NotFoundException.error';
+import { decodeUser } from './middleware/decodeuser.middleware';
 import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
 
@@ -58,6 +59,9 @@ export class App {
                 httpOnly: true,
                 secure: config.NODE_ENV === 'production',
             })
+        );
+        this._app.use(
+            decodeUser
         );
         this._app.use(
             express.json({

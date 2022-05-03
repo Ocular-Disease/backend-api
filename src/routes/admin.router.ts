@@ -16,21 +16,18 @@ class AdminRouter {
 	private routes() {
 		this.router.get(
 			'/',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			adminController.allAdmins
 		);
 		this.router.get(
 			'/me/details',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			adminController.details
 		);
 		this.router.post(
 			'/',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			adminController.create
@@ -39,14 +36,12 @@ class AdminRouter {
 		this.router.get('/logout', adminController.logout);
 		this.router.get(
 			'/me',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			adminController.currentAdmin
 		);
 		this.router.get(
 			'/:id',
-			decodeUser,
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
 			adminController.adminById

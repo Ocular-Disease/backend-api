@@ -22,7 +22,7 @@ async function main() {
 
 		const app = new App();
 		app.listen(() => {
-			console.log(`Server is running on port ${config.port}`);
+			console.log(`App at: http://localhost:${config.port}`);
 		});
 	} catch (error: any) {
 		console.error(error.message);
