@@ -12,6 +12,13 @@ class JwtService {
 	public verify(token: string): IPayload {
 		return jwt.verify(token, config.JWT_SECRET!, this.options) as IPayload;
 	}
+
+	public signRefreshToken(payload: IPayload): string {
+		return jwt.sign(payload, config.JWT_SECRET!, {
+			...this.options,
+			expiresIn: '90d',
+		});
+	}
 }
 
 export default new JwtService({

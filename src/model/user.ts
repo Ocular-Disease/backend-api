@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, JoinColumn, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import {Token} from "./token";
 
 export abstract class User {
 	@PrimaryGeneratedColumn('uuid')
@@ -16,4 +17,7 @@ export abstract class User {
 
 	@Column()
 	password!: string;
+
+	@OneToMany(type => Token, token => token.user)
+	tokens!: Token[];
 }

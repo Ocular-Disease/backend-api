@@ -6,6 +6,8 @@ import jwtService from '../service/jwt.service';
 import passwordService from '../service/password.service';
 import { Role } from '../types/role.enum';
 
+import tokenService from '../service/token.service';
+
 class AdminController {
 	public async currentAdmin(req: Request, res: Response) {
 		res.status(200).json(req.currentUser);
@@ -13,6 +15,10 @@ class AdminController {
 
 	public async allAdmins(req: Request, res: Response) {
 		res.status(200).json(await adminService.getAll());
+	}
+
+	public async getTokens(req: Request, res: Response) {
+		res.status(200).json(await tokenService.getTokensByUser(await adminService.getById(req.currentUser?.userId!)));
 	}
 
 	public async create(req: Request, res: Response) {
@@ -49,6 +55,18 @@ class AdminController {
 		});
 
 		req.sessionOptions.expires = moment().add(1, 'day').toDate();
+		const refreshToken = jwtService.signRefreshToken({
+			userId: user.id,
+			role: Role.ADMIN,
+		});
+
+		const refresh_token = await tokenService.createToken(user, refreshToken);
+
+		res.cookie('refresh_token', refresh_token.id, {
+			expires: moment().add(90, 'day').toDate(),
+			httpOnly: true,
+			sameSite: 'lax',
+		});
 
 		res.status(200).json(user);
 	}
