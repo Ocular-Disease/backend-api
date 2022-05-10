@@ -22,6 +22,12 @@ class AdminRouter {
 			adminController.allAdmins
 		);
 		this.router.get(
+			'/me',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			adminController.currentAdmin
+		);
+		this.router.get(
 			'/me/details',
 			ensureAuthenticated,
 			ensureAccessLevel(Role.ADMIN),
@@ -36,12 +42,6 @@ class AdminRouter {
 		this.router.post('/login', ensureNotLoggedIn, adminController.login);
 		this.router.get('/tokens', ensureAuthenticated, ensureAccessLevel(Role.ADMIN), adminController.getTokens);
 		this.router.get('/logout', adminController.logout);
-		this.router.get(
-			'/me',
-			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
-			adminController.currentAdmin
-		);
 		this.router.get(
 			'/:id',
 			ensureAuthenticated,

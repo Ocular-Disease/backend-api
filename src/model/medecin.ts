@@ -6,7 +6,4 @@ import { User } from './user';
 export class Medecin extends User {
 	@Column()
 	private specialite!: string;
-
-	@OneToMany(type => Secretaire, secretaire => secretaire.medecin)
-	secretaires!: Secretaire[];
 }

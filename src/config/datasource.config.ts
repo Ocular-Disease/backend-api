@@ -6,6 +6,9 @@ import { Admin } from '../model/admin';
 import { Medecin } from '../model/medecin';
 import { Secretaire } from '../model/secretaire';
 import {Token} from "../model/token";
+import { Stade } from '../model/stade';
+import { ImageClassifie } from '../model/ImageClassifie';
+import { Maladie } from '../model/maladie';
 
 const PostgresDataSource = new DataSource({
 	name: 'default',
@@ -15,7 +18,7 @@ const PostgresDataSource = new DataSource({
 	username: 'postgres',
 	password: config.DB_PASSWORD,
 	database: 'oculardb',
-	entities: [User, Admin, Medecin, Secretaire, Token],
+	entities: [User, Admin, Medecin, Secretaire, Token, ImageClassifie, Stade, Maladie],
 	synchronize: true,
 	namingStrategy: new SnakeNamingStrategy(),
 });

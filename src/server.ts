@@ -9,6 +9,7 @@ import { NotFoundException } from './error/NotFoundException.error';
 import { decodeUser } from './middleware/decodeuser.middleware';
 import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
+import maladieRouter from './routes/maladie.router';
 
 export class App {
     private _app: Application;
@@ -73,6 +74,7 @@ export class App {
     private mapRoutes() {
         this._app.use('/api/admins', adminRouter.router);
         this._app.use('/api/medecins', medecinRouter.router);
+        this._app.use('/api/maladie', maladieRouter.router);
     }
 
     private notFound(
