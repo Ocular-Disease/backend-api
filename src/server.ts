@@ -10,6 +10,7 @@ import { decodeUser } from './middleware/decodeuser.middleware';
 import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
 import maladieRouter from './routes/maladie.router';
+import stadeRouter from './routes/stade.router';
 
 export class App {
     private _app: Application;
@@ -49,7 +50,9 @@ export class App {
         this._app.use(securityMiddleware);
         this._app.use(
             cors({
-                origin: config.CORS_ORIGIN,
+                origin: "*",
+                methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTION",
+                credentials: true,
             })
         );
         this._app.use(
@@ -74,7 +77,8 @@ export class App {
     private mapRoutes() {
         this._app.use('/api/admins', adminRouter.router);
         this._app.use('/api/medecins', medecinRouter.router);
-        this._app.use('/api/maladie', maladieRouter.router);
+        this._app.use('/api/maladies', maladieRouter.router);
+        this._app.use('/api/stades', stadeRouter.router);
     }
 
     private notFound(
