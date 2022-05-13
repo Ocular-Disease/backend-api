@@ -10,6 +10,7 @@ import { decodeUser } from './middleware/decodeuser.middleware';
 import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
 import maladieRouter from './routes/maladie.router';
+import secretaireRouter from './routes/secretaire.router';
 
 export class App {
     private _app: Application;
@@ -75,6 +76,7 @@ export class App {
         this._app.use('/api/admins', adminRouter.router);
         this._app.use('/api/medecins', medecinRouter.router);
         this._app.use('/api/maladie', maladieRouter.router);
+        this._app.use('/api/secretaires', secretaireRouter.router);
     }
 
     private notFound(
