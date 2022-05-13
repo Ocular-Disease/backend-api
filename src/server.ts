@@ -11,6 +11,7 @@ import adminRouter from './routes/admin.router';
 import medecinRouter from './routes/medecin.router';
 import maladieRouter from './routes/maladie.router';
 import stadeRouter from './routes/stade.router';
+import healthRouter from './routes/health.router';
 
 export class App {
     private _app: Application;
@@ -79,6 +80,7 @@ export class App {
         this._app.use('/api/medecins', medecinRouter.router);
         this._app.use('/api/maladies', maladieRouter.router);
         this._app.use('/api/stades', stadeRouter.router);
+        this._app.use('/api/healthz', healthRouter.router)
     }
 
     private notFound(
