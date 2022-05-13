@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { Secretaire } from './secretaire';
 import { User } from './user';
 
 @Entity()
