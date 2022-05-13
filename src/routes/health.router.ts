@@ -9,7 +9,7 @@ class HealthRouter {
     }
 
     private routes() {
-        this.router.get('/healthz', (req, res) => {
+        this.router.get('/', (req, res) => {
             res.send('OK');
         });
     }
