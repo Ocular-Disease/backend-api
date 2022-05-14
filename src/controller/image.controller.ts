@@ -29,6 +29,22 @@ class ImageController {
 
         return res.status(201).json(images);
     }
+
+    public async getImagesByStade(req: Request, res: Response) {
+        const { stadeId } = req.params;
+        const images = await imageService.getByStade(stadeId);
+        return res.status(200).json(images);
+    }
+
+    public async deleteImage(req: Request, res: Response) {
+        const { id } = req.params;
+        const image = await imageService.getById(id);
+        if (!image) {
+            throw new BadRequestException('Image not found');
+        }
+        await imageService.delete(image);
+        return res.status(200).json(image);
+    }
 }
 
 export default new ImageController();

@@ -16,8 +16,22 @@ export class ImageRouter {
         this.router.post(
             "/add",
             ensureAuthenticated,
-            ensureAccessLevel(Role.ADMIN),
+            ensureAccessLevel(Role.MEDECIN),
             imageController.addImage
+        );
+
+        this.router.get(
+            "/stades/:stadeId",
+            ensureAuthenticated,
+            ensureAccessLevel(Role.MEDECIN),
+            imageController.getImagesByStade
+        );
+
+        this.router.delete(
+            "/:id",
+            ensureAuthenticated,
+            ensureAccessLevel(Role.MEDECIN),
+            imageController.deleteImage
         );
     }
 }
