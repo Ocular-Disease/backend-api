@@ -28,6 +28,10 @@ class MaladieService {
 	public async update(id: string, Maladie: Maladie): Promise<Maladie> {
 		return this.maladieRepository.save({ ...Maladie, id });
 	}
+
+	public async getByNom(nom: string): Promise<Maladie | null> {
+		return this.maladieRepository.findOneBy({ nom });
+	}
 }
 
 export default new MaladieService();

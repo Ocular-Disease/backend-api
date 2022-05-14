@@ -9,6 +9,12 @@ export class MaladieController {
     public async create(req: Request, res: Response) {
         const { nom, description } = req.body;
 
+        const exists = await maladieService.getByNom(nom);
+
+        if (exists) {
+            throw new Error("maladie already exists");
+        }
+
         const maladie = new Maladie();
 
         maladie.nom = nom;
