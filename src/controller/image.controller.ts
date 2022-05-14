@@ -21,6 +21,7 @@ class ImageController {
             const image = new ImageClassifie();
             image.url = url;
             image.stade = stade;
+            image.nom = url.split('/').pop() as string;
             images.push(image);
         }
 
