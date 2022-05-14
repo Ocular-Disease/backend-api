@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { BadRequestException } from '../error/BadRequestException.error';
 import { Stade } from '../model/stade';
 import maladieService from '../service/maladie.service';
@@ -12,12 +12,18 @@ export class StadeController {
     }
 
     public async getAll(req: Request, res: Response): Promise<Response> {
+        const { extended } = req.query;
+
+        if (extended === 'true') {
+            return res.status(200).json(await stadeService.getAllStadeWithImages());
+        }
+
         const stades = await stadeService.getAll();
         return res.status(200).json(stades);
     }
 
     public async create(req: Request, res: Response): Promise<Response> {
-        const {nom, description, maladieId} = req.body;
+        const { nom, description, maladieId } = req.body;
 
 
         const maladie = await maladieService.getById(maladieId);
@@ -47,13 +53,13 @@ export class StadeController {
     }
 
     public async delete(req: Request, res: Response): Promise<Response> {
-        const {id} = req.params;
+        const { id } = req.params;
         const stade = await stadeService.getById(id);
         if (!stade) {
             throw new BadRequestException('Stade not found');
         }
         await stadeService.delete(stade);
-        return res.status(200).json({message: 'OK'});
+        return res.status(200).json({ message: 'OK' });
 
     }
 

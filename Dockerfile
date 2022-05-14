@@ -1,6 +1,6 @@
 FROM node:alpine as builder
 
-MAINTAINER Mohamed Belkamel
+LABEL MAINTAINER="MOHAMED BELKAMEL"
 
 WORKDIR /app
 

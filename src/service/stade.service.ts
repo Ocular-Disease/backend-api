@@ -9,13 +9,14 @@ export class StadeService {
     constructor() {
         this.stadeRepository = PostgresDataSource.getRepository(Stade);
     }
-    
+
     public async getByMaladie(maladieId: string): Promise<Stade[]> {
         return this.stadeRepository.
-        createQueryBuilder("stade")
-        .leftJoinAndSelect("stade.maladie", "maladie", "maladie.id = stade.maladie")
-        .where("maladie.id = :maladieId", { maladieId })
-        .getMany();
+            createQueryBuilder("stade")
+            .leftJoinAndSelect("stade.maladie", "maladie")
+            .leftJoinAndSelect("stade.imagesClassifies", "images", "images.stade = stade")
+            .where("maladie.id = :maladieId", { maladieId })
+            .getMany();
     }
 
     public async getAll(): Promise<Stade[]> {
@@ -31,11 +32,24 @@ export class StadeService {
     }
 
     public async getById(id: string): Promise<Stade | null> {
-        return this.stadeRepository.findOne({where: {id}});
+        return this.stadeRepository.findOne({ where: { id } });
     }
 
     public async getByNom(nom: string): Promise<Stade | null> {
-        return this.stadeRepository.findOne({where: {nom}});
+        return this.stadeRepository.findOne({ where: { nom } });
+    }
+
+    public async getStadeWithImages(id: string): Promise<Stade | null> {
+        return this.stadeRepository.createQueryBuilder("stade")
+            .leftJoinAndSelect("stade.imagesClassifies", "images", "images.stade = stade.id")
+            .where("stade.id = :id", { id })
+            .getOne();
+    }
+
+    public async getAllStadeWithImages(): Promise<Stade[]> {
+        return this.stadeRepository.createQueryBuilder("stade")
+            .leftJoinAndSelect("stade.imagesClassifies", "images", "images.stade = stade.id")
+            .getMany();
     }
 
 }

@@ -14,7 +14,7 @@ class StadeRouter {
 	}
 
 	private routes() {
-        this.router.get(
+		this.router.get(
 			'/maladie/:maladieId',
 			ensureAuthenticated,
 			ensureAccessLevel(Role.MEDECIN),
