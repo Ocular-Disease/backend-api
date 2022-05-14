@@ -4,17 +4,17 @@ import maladieController from '../controller/maladie.controller';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
 import { Role } from '../types/role.enum';
-import {ensureNotLoggedIn} from "../middleware/ensureNotLoggedIn.middleware";
+import { ensureNotLoggedIn } from "../middleware/ensureNotLoggedIn.middleware";
 
 class MaladieRouter {
-	public router: Router;
+    public router: Router;
 
-	constructor() {
-		this.router = Router();
-		this.routes();
-	}
+    constructor() {
+        this.router = Router();
+        this.routes();
+    }
 
-	private routes() {
+    private routes() {
         this.router.post(
             '/',
             ensureAuthenticated,
@@ -35,7 +35,14 @@ class MaladieRouter {
             ensureAccessLevel(Role.MEDECIN),
             maladieController.getById
         );
-	}
+
+        this.router.delete(
+            '/:id',
+            ensureAuthenticated,
+            ensureAccessLevel(Role.ADMIN),
+            maladieController.delete
+        );
+    }
 }
 
 export default new MaladieRouter();

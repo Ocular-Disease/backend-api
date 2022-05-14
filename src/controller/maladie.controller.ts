@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { Maladie } from '../model/maladie';
 import maladieService from '../service/maladie.service';
 
@@ -25,7 +25,7 @@ export class MaladieController {
 
     public async getAll(req: Request, res: Response) {
         const maladies = await maladieService.getAll();
-        
+
         res.status(200).json({
             message: "maladies found",
             maladies
@@ -37,12 +37,22 @@ export class MaladieController {
 
     public async getById(req: Request, res: Response) {
         const { id } = req.params;
-        
+
         const maladie = await maladieService.getById(id);
 
         res.status(200).json({
             message: "maladie found",
             maladie
+        });
+    }
+
+    public async delete(req: Request, res: Response) {
+        const { id } = req.params;
+
+        await maladieService.delete(id);
+
+        res.status(200).json({
+            message: "maladie deleted"
         });
     }
 
