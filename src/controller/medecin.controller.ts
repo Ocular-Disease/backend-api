@@ -21,7 +21,7 @@ class MedecinController {
 	public async create(req: Request, res: Response) {
 		const medecin = req.body;
 
-		res.status(200).json(await medecinService.create(medecin));
+		res.status(200).json(await medecinService.create({ ...medecin, password: await passwordService.hashPassword(medecin.password) }));
 	}
 
 	public async delete(req: Request, res: Response) {
