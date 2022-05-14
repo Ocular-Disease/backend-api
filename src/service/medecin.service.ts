@@ -28,6 +28,10 @@ class MedecinService {
 	public async update(id: string, medecin: Medecin): Promise<Medecin> {
 		return this.medecinRepository.save({ ...medecin, id });
 	}
+
+	public async getByEmail(email: string): Promise<Medecin | null> {
+		return this.medecinRepository.findOneBy({ email });
+	}
 }
 
 export default new MedecinService();

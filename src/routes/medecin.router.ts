@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import medecinController from '../controller/medecin.controller';
-import { decodeUser } from '../middleware/decodeuser.middleware';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
 import { Role } from '../types/role.enum';
@@ -14,6 +13,10 @@ class MedecinRouter {
 	}
 
 	private routes() {
+		this.router.post(
+			'/login',
+			medecinController.login
+		);
 		this.router.get(
 			'/',
 			ensureAuthenticated,
