@@ -6,8 +6,7 @@ import stadeService from '../service/stade.service';
 
 class ImageController {
     public async addImage(req: Request, res: Response) {
-        const { stadeId } = req.params;
-        const { urls } = req.body as { urls: string[] };
+        const { urls, stadeId } = req.body as { urls: string[], stadeId: string };
 
 
         const stade = await stadeService.getById(stadeId);

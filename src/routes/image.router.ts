@@ -13,11 +13,13 @@ export class ImageRouter {
     }
 
     private routes() {
-        this.router.put(
-            "/add/:stadeId",
+        this.router.post(
+            "/add",
             ensureAuthenticated,
             ensureAccessLevel(Role.ADMIN),
             imageController.addImage
-        )
+        );
     }
 }
+
+export default new ImageRouter();
