@@ -14,9 +14,9 @@ export class Stade {
     @Column()
     description!: string;
 
-    @ManyToOne(type => Maladie, maladie => maladie.stades)
+    @ManyToOne(type => Maladie, maladie => maladie.stades, { onDelete: "CASCADE", cascade: true })
     maladie!: Maladie;
 
-    @OneToMany(type => ImageClassifie, imageClassifie => imageClassifie.stade)
+    @OneToMany(type => ImageClassifie, imageClassifie => imageClassifie.stade, { onDelete: "CASCADE", cascade: true })
     imagesClassifies!: ImageClassifie[];
 }
