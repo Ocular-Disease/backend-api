@@ -14,7 +14,7 @@ export class StadeService {
         return this.stadeRepository.
             createQueryBuilder("stade")
             .leftJoinAndSelect("stade.maladie", "maladie")
-            .leftJoinAndSelect("stade.imagesClassifies", "images", "images.stade = stade")
+            .leftJoinAndSelect("stade.imagesClassifies", "images", "images.stade = stade.id")
             .where("maladie.id = :maladieId", { maladieId })
             .getMany();
     }
