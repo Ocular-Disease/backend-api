@@ -7,6 +7,7 @@ import passwordService from '../service/password.service';
 import { Role } from '../types/role.enum';
 
 import tokenService from '../service/token.service';
+import awsService from '../service/aws.service';
 
 class AdminController {
 	public async currentAdmin(req: Request, res: Response) {
@@ -29,6 +30,27 @@ class AdminController {
 		const userId = req.params.id;
 
 		res.status(200).json(await adminService.getById(userId));
+	}
+
+	public async getPresignedUrl(req: Request, res: Response) {
+		const { file } = req.query as { file: string };
+
+		if (!file) {
+			throw new BadRequestException('Missing file');
+		}
+
+
+		// Get file type from file name
+		const fileType = file.split('.').pop() as string;
+
+		// Generate a unique file name
+		const fileName = `${new Date().getTime()}/${file.replace(/^.*[\\\/]/, '').split('.').shift()}.${fileType}`;
+
+		// Generate a presigned URL
+		const { fields, url, destination } = awsService.getPresignedUrl(fileName);
+
+		res.status(200).json({ fields, url, destination });
+
 	}
 
 	public async login(req: Request, res: Response) {

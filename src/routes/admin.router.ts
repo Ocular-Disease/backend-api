@@ -4,7 +4,7 @@ import { decodeUser } from '../middleware/decodeuser.middleware';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
 import { Role } from '../types/role.enum';
-import {ensureNotLoggedIn} from "../middleware/ensureNotLoggedIn.middleware";
+import { ensureNotLoggedIn } from "../middleware/ensureNotLoggedIn.middleware";
 
 class AdminRouter {
 	public router: Router;
@@ -42,6 +42,12 @@ class AdminRouter {
 		this.router.post('/login', ensureNotLoggedIn, adminController.login);
 		this.router.get('/tokens', ensureAuthenticated, ensureAccessLevel(Role.ADMIN), adminController.getTokens);
 		this.router.get('/logout', adminController.logout);
+		this.router.get(
+			'/upload',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			adminController.getPresignedUrl
+		);
 		this.router.get(
 			'/:id',
 			ensureAuthenticated,

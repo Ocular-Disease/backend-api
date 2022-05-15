@@ -26,6 +26,7 @@
 		"dev": "nodemon src/index.ts"
 	},
 	"dependencies": {
+		"@types/mime-types": "^2.1.1",
 		"aws-sdk": "^2.1135.0",
 		"bcrypt": "^5.0.1",
 		"class-transformer": "^0.5.1",
@@ -38,6 +39,7 @@
 		"helmet": "^5.0.2",
 		"joi": "^17.6.0",
 		"jsonwebtoken": "^8.5.1",
+		"mime-types": "^2.1.35",
 		"moment": "^2.29.3",
 		"morgan": "^1.10.0",
 		"pg": "^8.7.3",
