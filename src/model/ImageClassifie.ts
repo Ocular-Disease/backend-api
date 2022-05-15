@@ -13,6 +13,6 @@ export class ImageClassifie {
     @Column()
     nom!: string;
 
-    @ManyToOne(type => Stade, stade => stade.imagesClassifies, { onDelete: "CASCADE", cascade: true })
+    @ManyToOne(type => Stade, stade => stade.imagesClassifies)
     stade!: Stade;
 }

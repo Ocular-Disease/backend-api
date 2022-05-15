@@ -93,6 +93,6 @@ export class App {
     }
 
     public listen(callback: () => void) {
-        this._app.listen(config.port, callback);
+        return this._app.listen(config.port, callback);
     }
 }

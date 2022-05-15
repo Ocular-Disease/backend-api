@@ -21,9 +21,26 @@ async function main() {
 		console.log('Connected to DB');
 
 		const app = new App();
-		app.listen(() => {
+		const server = app.listen(() => {
 			console.log(`App at: http://localhost:${config.port}`);
 		});
+
+		process.on('SIGTERM', () => {
+			console.log('SIGTERM signal received.');
+			server.close(() => {
+				console.log('Process terminated.');
+				process.exit(0);
+			});
+		});
+
+		process.on('SIGINT', () => {
+			console.log('SIGINT signal received.');
+			server.close(() => {
+				console.log('Process terminated.');
+				process.exit(0);
+			});
+		});
+
 	} catch (error: any) {
 		console.error(error.message);
 	}
