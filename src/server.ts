@@ -52,7 +52,7 @@ export class App {
         this._app.use(securityMiddleware);
         this._app.use(
             cors({
-                origin: "*",
+                origin: ["http://localhost:3000", "https://front-end-react-nu.vercel.app"],
                 credentials: true,
             })
         );
