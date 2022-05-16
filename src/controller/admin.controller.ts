@@ -16,7 +16,7 @@ class AdminController {
 	}
 
 	public async allAdmins(req: Request, res: Response) {
-		res.status(200).json(await adminService.getAll());
+		res.status(200).json((await adminService.getAll()).map((admin) => ({ ...admin, password: undefined })));
 	}
 
 	public async getTokens(req: Request, res: Response) {
@@ -30,7 +30,7 @@ class AdminController {
 	public async adminById(req: Request, res: Response) {
 		const userId = req.params.id;
 
-		res.status(200).json(await adminService.getById(userId));
+		res.status(200).json({ ...await adminService.getById(userId), password: undefined });
 	}
 
 	public async getPresignedUrl(req: Request, res: Response) {
@@ -92,7 +92,7 @@ class AdminController {
 			secure: config.NODE_ENV === 'production',
 		});
 
-		res.status(200).json(user);
+		res.status(200).json({ ...user, password: undefined });
 	}
 
 	public async logout(req: Request, res: Response) {

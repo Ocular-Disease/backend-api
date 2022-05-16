@@ -35,10 +35,8 @@ export class MaladieController {
 
         res.status(200).json({
             message: "maladies found",
-            maladies
+            maladies: maladies.map(maladie => ({ ...maladie, password: undefined }))
         });
-
-        console.log("maladies found");
 
     }
 
@@ -66,7 +64,7 @@ export class MaladieController {
     public async update(req: Request, res: Response) {
         const maladieId = req.params.id;
         const maladie = req.body;
-    
+
         res.status(200).json(await maladieService.update(maladieId, maladie));
     }
 

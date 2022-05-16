@@ -16,7 +16,7 @@ class MedecinController {
 	public async getById(req: Request, res: Response) {
 		const medecinId = req.params.id;
 
-		res.status(200).json(await medecinService.getById(medecinId));
+		res.status(200).json({ ...await medecinService.getById(medecinId), password: undefined });
 	}
 
 	public async create(req: Request, res: Response) {
@@ -37,7 +37,7 @@ class MedecinController {
 		const medecinId = req.params.id;
 		const medecin = req.body;
 
-		res.status(200).json(await medecinService.update(medecinId, medecin));
+		res.status(200).json({ ...await medecinService.update(medecinId, medecin), password: undefined });
 	}
 
 	public async login(req: Request, res: Response) {
@@ -78,7 +78,7 @@ class MedecinController {
 			secure: config.NODE_ENV === 'production',
 		});
 
-		res.status(200).json(user);
+		res.status(200).json({ ...user, password: undefined });
 	}
 }
 
