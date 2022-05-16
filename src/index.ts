@@ -29,25 +29,24 @@ async function main() {
 			console.log('SIGTERM signal received.');
 			server.close(() => {
 				console.log('Process terminated.');
-				process.exit(0);
+				PostgresDataSource.destroy().then(res => {
+					console.log('Database destroyed');
+					process.exit(0);
+				})
 			});
 
-			PostgresDataSource.destroy().then(res => {
-				console.log('Database destroyed');
-				process.exit(0);
-			})
 		});
 
 		process.on('SIGINT', () => {
 			console.log('SIGINT signal received.');
 			server.close(() => {
 				console.log('Process terminated.');
+				PostgresDataSource.destroy().then(res => {
+					console.log('Database destroyed');
+					process.exit(0);
+				})
 			});
 
-			PostgresDataSource.destroy().then(res => {
-				console.log('Database destroyed');
-				process.exit(0);
-			})
 		});
 
 	} catch (error: any) {
