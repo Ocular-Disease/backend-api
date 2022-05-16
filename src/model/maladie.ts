@@ -9,10 +9,10 @@ export class Maladie {
 
     @Column()
     nom!: string;
-    
+
     @Column()
     description!: string;
 
-    @OneToMany(type => Stade, stade => stade.maladie, {onDelete: 'CASCADE', cascade: true})
+    @OneToMany(type => Stade, stade => stade.maladie)
     stades!: Stade[];
 }
