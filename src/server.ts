@@ -63,6 +63,7 @@ export class App {
                 signed: false,
                 httpOnly: true,
                 secure: config.NODE_ENV === 'production',
+                sameSite: "none"
             })
         );
         this._app.use(
