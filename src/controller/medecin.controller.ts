@@ -10,7 +10,10 @@ import { Role } from '../types/role.enum';
 
 class MedecinController {
 	public async getAll(req: Request, res: Response) {
-		res.status(200).json(await medecinService.getAll());
+		const medecins = await medecinService.getAll();
+
+
+		res.status(200).json(medecins.map(medecin => ({ ...medecin, password: undefined })));
 	}
 
 	public async getById(req: Request, res: Response) {
