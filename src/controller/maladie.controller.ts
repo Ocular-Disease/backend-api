@@ -20,12 +20,13 @@ export class MaladieController {
         maladie.nom = nom;
         maladie.description = description;
 
-        await maladieService.create(maladie);
+        const data = await maladieService.create(maladie);
 
         console.log("maladie created");
 
         res.status(201).json({
-            message: "maladie created"
+            message: "maladie created",
+            maladie: data
         });
     }
 
