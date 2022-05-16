@@ -63,6 +63,13 @@ export class MaladieController {
         });
     }
 
+    public async update(req: Request, res: Response) {
+        const maladieId = req.params.id;
+        const maladie = req.body;
+    
+        res.status(200).json(await maladieService.update(maladieId, maladie));
+    }
+
 }
 
 export default new MaladieController();

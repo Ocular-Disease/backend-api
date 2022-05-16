@@ -42,6 +42,13 @@ class MaladieRouter {
             ensureAccessLevel(Role.ADMIN),
             maladieController.delete
         );
+
+        this.router.put(
+			'/:id',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			maladieController.update
+		);
     }
 }
 

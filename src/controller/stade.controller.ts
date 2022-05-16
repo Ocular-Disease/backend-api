@@ -63,6 +63,15 @@ export class StadeController {
 
     }
 
+       
+    
+    public async update(req: Request, res: Response) {
+        const stadeId = req.params.id;
+        const stade = req.body;
+    
+        res.status(200).json(await stadeService.update(stadeId, stade));
+    }
+    
 }
 
 export default new StadeController();

@@ -33,6 +33,13 @@ export class ImageRouter {
             ensureAccessLevel(Role.MEDECIN),
             imageController.deleteImage
         );
+
+        this.router.put(
+			'/:id',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			imageController.update
+		);
     }
 }
 
