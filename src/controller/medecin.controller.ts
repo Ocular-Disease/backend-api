@@ -73,7 +73,7 @@ class MedecinController {
 		res.cookie('refresh_token', refresh_token.id, {
 			expires: moment().add(90, 'day').toDate(),
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		});
 
 		res.status(200).json(user);
