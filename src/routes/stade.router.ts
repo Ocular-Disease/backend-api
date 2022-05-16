@@ -41,6 +41,14 @@ class StadeRouter {
 			ensureAccessLevel(Role.ADMIN),
 			stadeController.delete
 		);
+
+
+		this.router.put(
+			'/:id',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			stadeController.update
+		);
 	}
 }
 

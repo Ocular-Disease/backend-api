@@ -52,6 +52,10 @@ export class StadeService {
             .getMany();
     }
 
+    public async update(id: string, stade: Stade): Promise<Stade> {
+		return this.stadeRepository.save({ ...stade, id });
+	}
+
 }
 
 export default new StadeService();

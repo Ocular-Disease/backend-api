@@ -44,6 +44,13 @@ class ImageController {
         }
         await imageService.delete(image);
         return res.status(200).json(image);
+
+    }
+    public async update(req: Request, res: Response) {
+        const imageId = req.params.id;
+        const image = req.body;
+    
+        res.status(200).json(await imageService.update(imageId, image));
     }
 }
 
