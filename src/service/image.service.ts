@@ -48,6 +48,10 @@ class ImageService {
     public async createMany(images: ImageClassifie[]): Promise<ImageClassifie[]> {
         return this.imageRepository.save(images);
     }
+
+    public async update(id: string, image: ImageClassifie): Promise<ImageClassifie> {
+		return this.imageRepository.save({ ...image, id });
+	}
 }
 
 export default new ImageService();
