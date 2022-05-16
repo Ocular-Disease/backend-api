@@ -8,6 +8,7 @@ import { Role } from '../types/role.enum';
 
 import tokenService from '../service/token.service';
 import awsService from '../service/aws.service';
+import { config } from '../config/env.config';
 
 class AdminController {
 	public async currentAdmin(req: Request, res: Response) {
@@ -88,6 +89,7 @@ class AdminController {
 			expires: moment().add(90, 'day').toDate(),
 			httpOnly: true,
 			sameSite: 'none',
+			secure: config.NODE_ENV === 'production',
 		});
 
 		res.status(200).json(user);

@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import moment from 'moment';
+import { config } from '../config/env.config';
 import { BadRequestException } from '../error/BadRequestException.error';
 import jwtService from '../service/jwt.service';
 import medecinService from '../service/medecin.service';
@@ -74,6 +75,7 @@ class MedecinController {
 			expires: moment().add(90, 'day').toDate(),
 			httpOnly: true,
 			sameSite: 'none',
+			secure: config.NODE_ENV === 'production',
 		});
 
 		res.status(200).json(user);
