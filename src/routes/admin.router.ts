@@ -39,7 +39,7 @@ class AdminRouter {
 			ensureAccessLevel(Role.ADMIN),
 			adminController.create
 		);
-		this.router.post('/login', ensureNotLoggedIn, adminController.login);
+		this.router.post('/login', adminController.login);
 		this.router.get('/tokens', ensureAuthenticated, ensureAccessLevel(Role.ADMIN), adminController.getTokens);
 		this.router.get('/logout', adminController.logout);
 		this.router.get(

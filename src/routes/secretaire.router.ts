@@ -17,13 +17,13 @@ class SecretaireRouter {
 		this.router.get(
 			'/',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			secretaireController.getAll
 		);
 		this.router.get(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			secretaireController.getById
 		);
 		this.router.post(
@@ -41,7 +41,7 @@ class SecretaireRouter {
 		this.router.put(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			secretaireController.update
 		);
 	}
