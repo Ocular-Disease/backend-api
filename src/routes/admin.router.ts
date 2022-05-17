@@ -40,12 +40,11 @@ class AdminRouter {
 			adminController.create
 		);
 		this.router.post('/login', adminController.login);
-		this.router.get('/tokens', ensureAuthenticated, ensureAccessLevel(Role.ADMIN), adminController.getTokens);
 		this.router.get('/logout', adminController.logout);
 		this.router.get(
 			'/upload',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			adminController.getPresignedUrl
 		);
 		this.router.get(
