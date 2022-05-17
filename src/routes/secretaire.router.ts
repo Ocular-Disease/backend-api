@@ -32,6 +32,10 @@ class SecretaireRouter {
 			ensureAccessLevel(Role.ADMIN),
 			secretaireController.create
 		);
+		this.router.post(
+			'/login',
+			secretaireController.login
+		);
 		this.router.delete(
 			'/:id',
 			ensureAuthenticated,

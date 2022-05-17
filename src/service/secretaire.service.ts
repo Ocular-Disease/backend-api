@@ -28,6 +28,10 @@ class SecretaireService {
 	public async update(id: string, secretaire: Secretaire): Promise<Secretaire> {
 		return this.secretaireRepository.save({ ...secretaire, id });
 	}
+
+	public async getByEmail(email: string): Promise<Secretaire | null> {
+		return this.secretaireRepository.findOneBy({ email });
+	}
 }
 
 export default new SecretaireService();
