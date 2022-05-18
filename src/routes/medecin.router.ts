@@ -2,6 +2,7 @@ import { Router } from 'express';
 import medecinController from '../controller/medecin.controller';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
+import { ensureRequestedResourceOwnership } from '../middleware/ensureRequestedResourceOwnership.middleware';
 import { Role } from '../types/role.enum';
 
 class MedecinRouter {
@@ -26,7 +27,8 @@ class MedecinRouter {
 		this.router.get(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
+			ensureRequestedResourceOwnership,
 			medecinController.getById
 		);
 		this.router.post(
@@ -44,7 +46,8 @@ class MedecinRouter {
 		this.router.put(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
+			ensureRequestedResourceOwnership,
 			medecinController.update
 		);
 	}

@@ -1,10 +1,8 @@
 import { Router } from 'express';
-import adminController from '../controller/admin.controller';
 import maladieController from '../controller/maladie.controller';
 import { ensureAccessLevel } from '../middleware/ensureAccessLevel';
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated.middleware';
 import { Role } from '../types/role.enum';
-import { ensureNotLoggedIn } from "../middleware/ensureNotLoggedIn.middleware";
 
 class MaladieRouter {
     public router: Router;

@@ -14,6 +14,7 @@ import stadeRouter from './routes/stade.router';
 import healthRouter from './routes/health.router';
 import imageRouter from './routes/image.router';
 import sharedRouter from './routes/shared.router';
+import secretaireRouter from './routes/secretaire.router';
 
 export class App {
     private _app: Application;
@@ -83,8 +84,9 @@ export class App {
         this._app.use('/api/maladies', maladieRouter.router);
         this._app.use('/api/stades', stadeRouter.router);
         this._app.use('/api/images', imageRouter.router);
-        this._app.use('/api/healthz', healthRouter.router);
         this._app.use('/api/shared', sharedRouter.router);
+        this._app.use('/api/secraitaire', secretaireRouter.router);
+        this._app.use('/api/healthz', healthRouter.router);
     }
 
     private notFound(

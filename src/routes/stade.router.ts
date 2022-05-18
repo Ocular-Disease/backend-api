@@ -31,14 +31,14 @@ class StadeRouter {
 		this.router.post(
 			'/',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			stadeController.create
 		);
 
 		this.router.delete(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			stadeController.delete
 		);
 
@@ -46,7 +46,7 @@ class StadeRouter {
 		this.router.put(
 			'/:id',
 			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
+			ensureAccessLevel(Role.MEDECIN),
 			stadeController.update
 		);
 	}
