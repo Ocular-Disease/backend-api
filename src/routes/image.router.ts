@@ -21,6 +21,13 @@ export class ImageRouter {
         );
 
         this.router.get(
+            '/preview/:stadeId',
+            ensureAuthenticated,
+            ensureAccessLevel(Role.MEDECIN),
+            imageController.getPreview
+        );
+
+        this.router.get(
             "/stades/:stadeId",
             ensureAuthenticated,
             ensureAccessLevel(Role.MEDECIN),
@@ -35,11 +42,11 @@ export class ImageRouter {
         );
 
         this.router.put(
-			'/:id',
-			ensureAuthenticated,
-			ensureAccessLevel(Role.ADMIN),
-			imageController.update
-		);
+            '/:id',
+            ensureAuthenticated,
+            ensureAccessLevel(Role.ADMIN),
+            imageController.update
+        );
     }
 }
 

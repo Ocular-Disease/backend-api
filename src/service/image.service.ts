@@ -13,12 +13,17 @@ class ImageService {
         return this.imageRepository.find();
     }
 
-    public async getPreview(): Promise<ImageClassifie[]> {
+    public async getPreview(stadeId: string): Promise<ImageClassifie[]> {
         return this.imageRepository.find({
             select: ["id", "url", "stade"],
             take: 4,
             order: {
                 id: "DESC"
+            },
+            where: {
+                stade: {
+                    id: stadeId
+                }
             }
         });
     }
@@ -50,8 +55,8 @@ class ImageService {
     }
 
     public async update(id: string, image: ImageClassifie): Promise<ImageClassifie> {
-		return this.imageRepository.save({ ...image, id });
-	}
+        return this.imageRepository.save({ ...image, id });
+    }
 }
 
 export default new ImageService();
