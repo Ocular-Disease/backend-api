@@ -23,7 +23,7 @@ class SecretaireController {
 	public async create(req: Request, res: Response) {
 		const secretaire = req.body;
 
-		res.status(200).json(await secretaireService.create(secretaire));
+		res.status(200).json(await secretaireService.create({ ...secretaire, password: await passwordService.hashPassword(secretaire.password) }));
 	}
 
 	public async delete(req: Request, res: Response) {
