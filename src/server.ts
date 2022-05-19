@@ -85,7 +85,7 @@ export class App {
         this._app.use('/api/stades', stadeRouter.router);
         this._app.use('/api/images', imageRouter.router);
         this._app.use('/api/shared', sharedRouter.router);
-        this._app.use('/api/secraitaire', secretaireRouter.router);
+        this._app.use('/api/secretaire', secretaireRouter.router);
         this._app.use('/api/healthz', healthRouter.router);
     }
 

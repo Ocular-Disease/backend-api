@@ -28,6 +28,13 @@ class StadeRouter {
 			stadeController.getAll
 		);
 
+		this.router.get(
+			'/:id',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.MEDECIN),
+			stadeController.getById
+		);
+
 		this.router.post(
 			'/',
 			ensureAuthenticated,
