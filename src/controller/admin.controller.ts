@@ -9,6 +9,7 @@ import { Role } from '../types/role.enum';
 import tokenService from '../service/token.service';
 import awsService from '../service/aws.service';
 import { config } from '../config/env.config';
+import { Admin } from '../model/admin';
 
 class AdminController {
 	public async currentAdmin(req: Request, res: Response) {
@@ -24,7 +25,26 @@ class AdminController {
 	}
 
 	public async create(req: Request, res: Response) {
-		throw new Error('Not implemented');
+		const { email, password, firstName, lastName } = req.body;
+
+		if (!email || !password || !firstName || !lastName) {
+			throw new BadRequestException('Missing required fields');
+		}
+
+		if (await adminService.getByEmail(email)) {
+			throw new BadRequestException('Email already exists');
+		}
+
+		const admin = new Admin();
+
+		admin.email = email;
+		admin.password = await passwordService.hashPassword(password);
+		admin.firstName = firstName;
+		admin.lastName = lastName;
+
+		const newAdmin = await adminService.create(admin);
+
+		res.status(200).json({ ...newAdmin, password: undefined });
 	}
 
 	public async adminById(req: Request, res: Response) {

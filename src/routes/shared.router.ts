@@ -26,22 +26,22 @@ class SharedRouter {
         });
 
         this.router.get('/me/details', ensureAuthenticated, (req, res) => {
-            const {userId, role} = req.currentUser!;
+            const { userId, role } = req.currentUser!;
 
             if (role === Role.ADMIN) {
                 adminService.getById(userId).then(admin => {
-                    res.status(200).json({...admin, password: undefined});
+                    res.status(200).json({ ...admin, password: undefined });
                 });
             } else if (role === Role.MEDECIN) {
                 medecinService.getById(userId).then(medecin => {
-                    res.status(200).json({...medecin, password: undefined});
+                    res.status(200).json({ ...medecin, password: undefined });
                 });
             } else if (role === Role.SECRETAIRE) {
                 secretaireService.getById(userId).then(secretaire => {
-                    res.status(200).json({...secretaire, password: undefined});
+                    res.status(200).json({ ...secretaire, password: undefined });
                 });
             } else {
-                res.status(400).json({message: "Invalid role"});
+                res.status(400).json({ message: "Invalid role" });
             }
         });
     }
