@@ -40,7 +40,7 @@ class MedecinController {
 		const medecinId = req.params.id;
 		const medecin = req.body;
 
-		res.status(200).json({ ...await medecinService.update(medecinId, medecin), password: undefined });
+		res.status(200).json({ ...await medecinService.update(medecinId, { ...medecin, password: passwordService.hashPassword(medecin.password) }) });
 	}
 
 	public async login(req: Request, res: Response) {

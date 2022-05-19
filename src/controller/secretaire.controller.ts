@@ -38,7 +38,7 @@ class SecretaireController {
 		const secretaireId = req.params.id;
 		const secretaire = req.body;
 
-		res.status(200).json(await secretaireService.update(secretaireId, secretaire));
+		res.status(200).json(await secretaireService.update(secretaireId, { ...secretaire, password: await passwordService.hashPassword(secretaire.password) }));
 	}
 
 	public async login(req: Request, res: Response) {
