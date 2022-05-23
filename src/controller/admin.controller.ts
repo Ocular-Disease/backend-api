@@ -129,6 +129,31 @@ class AdminController {
 
 		res.status(200).json(adminNoPassword);
 	}
+
+	public async update(req: Request, res: Response) {
+		const { email, firstName, lastName } = req.body;
+
+		const {adminId} = req.params;
+
+		const admin = await adminService.getById(adminId);
+
+		if (!admin) {
+			throw new BadRequestException('Admin not found');
+		}
+
+		if (!email || !firstName || !lastName) {
+			throw new BadRequestException('Missing required fields');
+		}
+
+		admin.email = email;
+		admin.firstName = firstName;
+		admin.lastName = lastName;
+		
+
+		const updatedAdmin = await adminService.update(adminId, admin);
+
+		return res.status(200).json({ ...updatedAdmin, password: undefined });
+	}
 }
 
 export default new AdminController();
