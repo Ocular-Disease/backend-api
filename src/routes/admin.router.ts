@@ -27,6 +27,14 @@ class AdminRouter {
 			ensureAccessLevel(Role.ADMIN),
 			adminController.currentAdmin
 		);
+
+		this.router.put(
+			'/:adminId',
+			ensureAuthenticated,
+			ensureAccessLevel(Role.ADMIN),
+			adminController.update
+		);
+
 		this.router.get(
 			'/me/details',
 			ensureAuthenticated,
