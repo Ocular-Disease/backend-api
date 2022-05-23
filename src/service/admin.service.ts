@@ -4,13 +4,13 @@ import { Admin } from '../model/admin';
 import { User } from '../model/user';
 
 class AdminService {
-	
+
 	private adminRepository: Repository<Admin>;
-	
+
 	constructor() {
 		this.adminRepository = PostgresDataSource.getRepository(Admin);
 	}
-	
+
 	public async update(adminId: string, admin: Admin) {
 		return this.adminRepository.save({ ...admin, id: adminId });
 	}
