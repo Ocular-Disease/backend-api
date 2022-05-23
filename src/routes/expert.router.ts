@@ -46,6 +46,11 @@ class ExpertRouter {
             ensureAccessLevel(Role.ADMIN),
             expertController.deleteExpert
         );
+
+        this.router.post(
+            '/login',
+            expertController.login
+        );
     }
 
 }
