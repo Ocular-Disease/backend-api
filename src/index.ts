@@ -17,6 +17,8 @@ async function main() {
 
 		console.log('Connected to DB');
 
+		console.log('Starting server...');
+
 		const app = new App();
 		const server = app.listen(() => {
 			console.log(`App at: http://localhost:${config.port}`);
@@ -29,9 +31,8 @@ async function main() {
 				PostgresDataSource.destroy().then(res => {
 					console.log('Database destroyed');
 					process.exit(0);
-				})
+				});
 			});
-
 		});
 
 		process.on('SIGINT', () => {
@@ -41,11 +42,9 @@ async function main() {
 				PostgresDataSource.destroy().then(res => {
 					console.log('Database destroyed');
 					process.exit(0);
-				})
+				});
 			});
-
 		});
-
 	} catch (error: any) {
 		console.error(error.message);
 	}
