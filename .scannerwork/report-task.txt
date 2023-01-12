@@ -1,0 +1,7 @@
+organization=discord-bot
+projectKey=pfa-nodejs
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.36672
+dashboardUrl=https://sonarcloud.io/dashboard?id=pfa-nodejs
+ceTaskId=AYWngBqfEJtRNBcU95fM
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYWngBqfEJtRNBcU95fM

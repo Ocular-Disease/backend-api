@@ -25,11 +25,13 @@ jobs:
             - name: Build Docker Image
               run: |
                   docker build -t project-pfa .
+                  echo "Docker image built successfully"
 
             - name: Run SonarQube Analysis
-              uses: sonarsource/sonarqube-scanner-github-action@v1
+              uses: sonarsource/sonarqube-scan-action@master
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  SONAR_HOST_URL: https://sonarcloud.io
 
             - name: Generate SonarQube report
               run: |
