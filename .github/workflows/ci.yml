@@ -13,9 +13,6 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Use Node.js version specified in package.json
-              run: npx nvm use
-
             - name: Install dependencies
               run: yarn install
 
